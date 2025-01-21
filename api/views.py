@@ -63,7 +63,7 @@ class ConvertImageView(APIView):
 
     def cleanup_files(self, *file_paths):
         import time
-        time.sleep(5)  # Espera 5 segundos para garantir que o arquivo não esteja em uso
+        time.sleep(5)
         for path in file_paths:
             if os.path.exists(path):
                 os.remove(path)
@@ -77,16 +77,37 @@ class DownloadVideoView(APIView):
             return Response({"error": "URL ausente."}, status=400)
 
         try:
-            yt = YouTube(url)
+            yt = YouTube(url, client="WEB")
             stream = yt.streams.get_highest_resolution()
 
-            file_path = stream.download(output_path="downloads/")
+            temp_dir = "temp_videos"
+            os.makedirs(temp_dir, exist_ok=True)
+            
+            file_path = stream.download(output_path=temp_dir)
+            
         except Exception as e:
             return Response({"error": str(e)}, status=500)
 
-        # Retornar o arquivo baixado como resposta
-        with open(file_path, "rb") as video_file:
-            response = Response(video_file.read(), content_type="video/mp4")
+        # Retornar o arquivo baixado como resposta usando FileResponse
+        try:
+            response = FileResponse(open(file_path, "rb"), content_type="video/mp4")
             response["Content-Disposition"] = f"attachment; filename='{yt.title}.mp4'"
+
+            # Iniciar a thread para excluir o arquivo após o envio
+            threading.Thread(
+                target=self.cleanup_files,
+                args=(file_path,),
+                daemon=True,
+            ).start()
+
             return response
-        
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
+
+    def cleanup_files(self, *file_paths):
+        import time
+        time.sleep(5)
+        for path in file_paths:
+            if os.path.exists(path):
+                os.remove(path)

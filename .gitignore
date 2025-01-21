@@ -1,0 +1,42 @@
+# Bytecode Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.py[cod]
+
+# Django
+*.log
+*.pot
+*.mo
+*.sqlite3
+/db.sqlite3
+/static/
+media/
+
+# Virtualenv
+venv/
+.env/
+.env.bak
+.venv/
+venv.bak/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Outros
+*.DS_Store
+*.coverage
+*.tox
+*.nox
+*.coverage.*
+*.hypothesis/
+*.pytest_cache/
+cover/
+
+# MySQL
+*.mysql
+*.db
