@@ -140,6 +140,17 @@ typing = ["typing-extensions"]
 xmp = ["defusedxml"]
 
 [[package]]
+name = "python-decouple"
+version = "3.8"
+description = "Strict separation of settings from code."
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f"},
+    {file = "python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66"},
+]
+
+[[package]]
 name = "pytube"
 version = "15.0.0"
 description = "Python 3 library for downloading YouTube Videos."
@@ -201,4 +212,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "6c37b2cec0933194b2a4629c2fb15e3c2b1396b17c9117d3be08cdbe9194b977"
+content-hash = "9c6be46e0a4e63457bb28be3ee14f9c049c5d6c044e30f14e51aa69a0324830c"
